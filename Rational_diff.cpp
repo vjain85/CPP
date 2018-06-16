@@ -9,7 +9,7 @@ class Rational
         void getVal();
         void setVal(int = 1,int = 2);
         void show();
-        Rational sum(Rational &);
+        Rational diff(Rational &);
 };
 
 void Rational::getVal()
@@ -26,7 +26,7 @@ void Rational::show()
 {
     cout <<""<<n<<"/"<<d<<endl;
 }
-Rational Rational::sum(Rational &ob)
+Rational Rational::diff(Rational &ob)
 {
     Rational t;
     t.d = d * ob.d;
@@ -43,7 +43,7 @@ int main()
     cout<<" + ";
     b.show();
     cout<<" = ";
-    c = a.sum(b);
+    c = a.diff(b);
     c.show();
     return 0;
 }
