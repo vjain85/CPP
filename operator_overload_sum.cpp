@@ -1,3 +1,5 @@
+/// Rational sum using operator overloading and friend funcion...
+
 #include<iostream>
 using namespace std;
 
