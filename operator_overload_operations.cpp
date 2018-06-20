@@ -1,4 +1,4 @@
-/// Rational operations using operator overloading ...
+/// Operations on Rational numbers using operator overloading ...
 
 #include<iostream>
 using namespace std;
@@ -8,6 +8,10 @@ class Rational
     private:
         int n,d;
     public:
+        ~Rational()
+        {
+            cout <<endl<<"Dead object: "<<n<<"/"<<d;
+        }
         void show()
         {
             cout << "\n"<<n<<"/"<<d;
@@ -57,9 +61,19 @@ class Rational
         bool operator!=(int);
         friend bool operator!=(int,Rational &);
 
+        Rational operator=(Rational const &ob) const;
+        Rational operator=(int const &) const;
+
+        friend ostream& operator<<(ostream &,Rational &a);
+
 };
 
-/**----------------------------------------------------*/
+ostream& operator<<(ostream &out,Rational &ob)
+{
+    cout << ""<<ob.n<<"/"<<ob.d;
+    return out;
+}
+/**--------------ADDITION-------------------*/
 
 Rational Rational::operator+(Rational &ob)
 {
@@ -83,7 +97,7 @@ Rational operator+(int a,Rational &ob)
     return c;
 }
 
-/**-------------------------------------------*/
+/**--------------SUBTRACTION-------------------*/
 
 Rational Rational::operator-(Rational &ob)
 {
@@ -109,7 +123,7 @@ Rational operator-(int a, Rational &ob)
     return c;
 }
 
-/**--------------------------------------------*/
+/**------------MULTIPLICATION-----------------*/
 
 Rational Rational::operator*(Rational &ob)
 {
@@ -133,7 +147,7 @@ Rational operator*(int a,Rational &ob)
     return c;
 }
 
-/**--------------------------------------------*/
+/**---------------DIVISION-----------------*/
 
 Rational Rational::operator/(Rational &ob)
 {
@@ -157,7 +171,7 @@ Rational operator/(int a,Rational &ob)
     return c;
 }
 
-/**--------------------------------------------*/
+/**--------------LESS_THAN---------------------*/
 
 bool Rational::operator<(Rational &ob)
 {
@@ -173,7 +187,7 @@ bool operator<(int a,Rational &ob)
 {
     return( a < (float)ob.n/ob.d);
 }
-/**--------------------------------------------*/
+/**---------------GREATER_THAN----------------------*/
 
 bool Rational::operator>(Rational &ob)
 {
@@ -189,7 +203,7 @@ bool operator>(int a,Rational &ob)
 {
     return( a > (float)ob.n/ob.d);
 }
-/**--------------------------------------------*/
+/**-------------LESS_THAN_OR_EQUALS---------------------*/
 
 bool Rational::operator<=(Rational &ob)
 {
@@ -206,7 +220,8 @@ bool operator<=(int a,Rational &ob)
     return( a <= (float)ob.n/ob.d);
 }
 
-/**--------------------------------------------*/
+/**--------------GREATER_THAN_OR_EQUALS--------------------*/
+
 bool Rational::operator>=(Rational &ob)
 {
     return( (float)n/d >= (float)ob.n/ob.d);
@@ -219,7 +234,7 @@ bool operator>=(int a,Rational &ob)
 {
     return( a >= (float)ob.n/ob.d);
 }
-/**--------------------------------------------*/
+/**----------------EXACT_EQUALS-----------------------*/
 
 bool Rational::operator==(Rational &ob)
 {
@@ -236,7 +251,7 @@ bool operator==(int a,Rational &ob)
     return( a == (float)ob.n/ob.d);
 }
 
-/**--------------------------------------------*/
+/**------------------NOT_EQUALS----------------------*/
 
 bool Rational::operator!=(Rational &ob)
 {
@@ -253,7 +268,25 @@ bool operator!=(int a,Rational &ob)
     return( a != (float)ob.n/ob.d);
 }
 
-/**--------------------------------------------*/
+/**------------------ASSIGNMENT---------------------*/
+
+Rational Rational::operator=(Rational const &ob) const
+{
+    Rational c;
+    c.d = ob.d;
+    c.n = ob.n;
+    return c;
+}
+Rational Rational::operator=(int const &a) const
+{
+    Rational c;
+    c.d = 1;
+    c.n = a;
+    return c;
+}
+
+/**----------------THE_MAIN_FUNCTION--------------------*/
+
 int main()
 {
     Rational a(3,5),b(5),c;
@@ -322,6 +355,12 @@ int main()
     cout<<(b != 5)<<endl;
     cout<<(5 != b)<<endl;
 
+    c = a + b;
+    cout<<endl<<a<<" + "<<b<<" = "<<c;
+    c = b;
+    cout<<endl<<a<<" + "<<b<<" = "<<c;
+    b = 5;
+    cout<<endl<<a<<" + "<<b<<" = "<<c;
 
     return 0;
 }
